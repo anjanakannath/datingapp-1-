@@ -1,0 +1,99 @@
+{% extends 'accounts/shared/accounts_base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating App Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .signup-container h1 {
+            margin-bottom: 20px;
+        }
+        .signup-container input[type="text"],
+        .signup-container input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .signup-container button:hover {
+            background-color: #218838;
+        }
+        .social-login {
+            margin-top: 20px;
+        }
+        .social-login button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .social-login .facebook {
+            background-color: #3b5998;
+            color: white;
+        }
+        .social-login .google {
+            background-color: #db4437;
+            color: white;
+        }
+        .social-login .twitter {
+            background-color: #1da1f2;
+            color: white;
+        }
+        .social-login button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h1>Signup</h1>
+        <form>
+            <input type="text" placeholder="Name" required>
+            <input type="tel" placeholder="Mobile Number" required>
+            <input type="tel" placeholder="Email" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="social-login">
+            <button class="facebook">Sign up with Facebook</button>
+            <button class="google">Sign up with Google</button>
+            <button class="twitter">Sign up with Twitter</button>
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock accounts_content %}
