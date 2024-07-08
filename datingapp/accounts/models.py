@@ -72,8 +72,8 @@ class Address(models.Model):
             {self.state}
             {self.country}
         '''
-    class EmployeeEmployer(models.Model):
-     id = models.BigAutoField(primary_key=True)
+class EmployeeEmployer(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     designation = models.CharField(max_length=100)
     location = models.CharField(max_length=100)

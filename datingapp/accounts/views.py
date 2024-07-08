@@ -3,18 +3,18 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import LoginFrom, RegistrationForm, AddressUpsertForm
+from .forms import LoginForm, UserForm, AddressUpsertForm
 from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView
 from .models import Address
 
 # Create your views here.
 class LoginView(View):
     def get(self, request):
-        form = LoginFrom()
+        form = LoginForm()
         return render(request, 'accounts/login.html', {'form': form})
     
     def post(self, request):
-        form = LoginFrom(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']

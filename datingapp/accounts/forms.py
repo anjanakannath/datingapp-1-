@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,Employee, Address,JobSeeker,RelationshipType,gender_choice
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
@@ -12,8 +12,8 @@ class LoginForm(Form):
     password = CharField(widget=PasswordInput)
 
 
-    class UserForm(UserCreationForm):
-     first_name = CharField(
+class UserForm(UserCreationForm):
+    first_name = CharField(
         label=("First Name"),
         max_length=30,
         required=False,
@@ -64,7 +64,7 @@ class LoginForm(Form):
 
 class EmployeeEmployerForm(ModelForm):
     class Meta:
-        model = Employee
+        model = EmployeeEmployer
         fields = "__all__"
         
 class JobSeekerForm(ModelForm):
@@ -79,14 +79,14 @@ class RelationshipTypeForm(forms.ModelForm):
         widgets = {
         'name': forms.RadioSelect(choices=RelationshipType.RELATIONSHIP_CHOICES)
         }
-        class UserPreferenceForm(forms.Form):
-              GENDER_CHOICES = [
-              ('men', 'Men'),
-              ('women', 'Women'),
-              ('both', 'Both'),
+    class UserPreferenceForm(forms.Form):
+        GENDER_CHOICES = [
+            ('men', 'Men'),
+            ('women', 'Women'),
+            ('both', 'Both'),
     ]
     
-    gender = forms.ChoiceField(choices=GENDER_CHOICES, required=True)
+        gender = forms.ChoiceField(choices=GENDER_CHOICES, required=True)
 
 
 
