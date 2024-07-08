@@ -1,0 +1,44 @@
+{% load static %}
+{% block styles %}
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        padding: 20px;
+    }
+    .grid-item {
+        background-color: #f1f1f1;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    .profile-pic {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        object-fit: cover;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<h1>Welcome to the Dating Site</h1>
+    <div class="grid-container">
+        {% for user in object_list %}
+        <div class="grid-item">
+            {% if user.profile_pics.exists %}
+                <img src="{{ user.profile_pics.first.profile_pic.url }}" alt="{{ user.username }}'s profile picture" class="profile-pic">
+            {% else %}
+                 <img src="{% static 'img/default_profile_pic.jpg' %}" alt="Default profile picture" class="profile-pic">
+            {% endif %}
+            ({{ user.username }})
+            <p>{{ user.get_gender_display }}</p>
+            <p>Dob : {{user.dob}}</p>
+            <p>{{ user.get_rel_status_display }}</p>
+            <!-- Add more user details as needed -->
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

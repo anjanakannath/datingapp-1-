@@ -101,3 +101,7 @@ def registersec3(request):
 
 def datingapp(request):
     return render(request, 'accounts/datingapp.html')
+
+def home(request):
+    return render(request, 'accounts/home.html.html')
+
