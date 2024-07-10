@@ -19,6 +19,7 @@ urlpatterns = [
     path('registersec2/', registersec2, name='registersec2'),  
     path('registersec3/', registersec3, name='registersec3'),  
     path('datingapp/', datingapp, name='datingapp'), 
+    path('profilelist',profile_list, name='profile_list'), 
     path('home/', home, name='home'), 
     
     

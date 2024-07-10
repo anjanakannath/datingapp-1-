@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
@@ -105,5 +105,10 @@ class AddressUpsertForm(ModelForm):
             'pincode': TextInput(attrs={'class': 'form-control'}),
             'is_default': CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_photo', 'name', 'age'] 
 
         

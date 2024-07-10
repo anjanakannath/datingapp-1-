@@ -116,4 +116,9 @@ class UserPreference(models.Model):
     
     def __str__(self):
         return self.get_gender_display()
+    
+class UserProfile(models.Model):
+    profile_photo = models.ImageField(upload_to='profile_photos/')
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
        

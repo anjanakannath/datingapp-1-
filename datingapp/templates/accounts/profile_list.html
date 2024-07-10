@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dating App Grid View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .profile {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .profile img {
+            width: 100%;
+            height: auto;
+        }
+        .profile .details {
+            padding: 15px;
+        }
+        .profile .details h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .profile .details p {
+            margin: 5px 0 0;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for profile in profiles %}
+        <div class="profile">
+            <img src="{{ profile.photo }}" alt="Profile Photo">
+            <div class="details">
+                <h2>{{ profile.name }}</h2>
+                <p>Age: {{ profile.age }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
