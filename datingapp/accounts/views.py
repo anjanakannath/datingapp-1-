@@ -102,12 +102,18 @@ def registersec3(request):
 def datingapp(request):
     return render(request, 'accounts/datingapp.html')
 
+
+def profile_viewme(request):
+    return render(request, 'accounts/profile_viewme.html')
+
+def profile_viewuser(request):
+    return render(request, 'accounts/profile_viewuser.html')
+
+
 def profile_list(request):
    
     profiles = [
         {"name": "Jane Doe", "age": 25, "photo": "https://via.placeholder.com/200"},
-        {"name": "John Smith", "age": 30, "photo": "https://via.placeholder.com/200"},
-        {"name": "Alice Johnson", "age": 28, "photo": "https://via.placeholder.com/200"},
     ]
     return render(request, 'accounts/profile_list.html', {'profiles': profiles})
 

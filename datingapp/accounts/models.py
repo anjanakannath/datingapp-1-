@@ -121,4 +121,19 @@ class UserProfile(models.Model):
     profile_photo = models.ImageField(upload_to='profile_photos/')
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-       
+
+class Profile(models.Model):
+    name = models.CharField(max_length=100)
+    date_of_birth = models.DateField()
+    age = models.IntegerField()
+    job = models.CharField(max_length=100)
+    qualification = models.CharField(max_length=200)
+    smoking = models.BooleanField()
+    drinking = models.CharField(max_length=100, choices=[('No', 'No'), ('Occasionally', 'Occasionally'), ('Yes', 'Yes')])
+    hobbies = models.TextField()
+    interests = models.TextField()
+    bio = models.TextField()
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name

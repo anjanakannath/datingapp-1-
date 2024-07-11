@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
@@ -110,5 +110,15 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['profile_photo', 'name', 'age'] 
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['name', 'date_of_birth', 'age', 'job', 'qualification', 'smoking', 'drinking', 'hobbies', 'interests', 'bio', 'profile_picture']
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            'smoking': forms.CheckboxInput(),
+            'drinking': forms.Select(choices=[('No', 'No'), ('Occasionally', 'Occasionally'), ('Yes', 'Yes')]),
+        }
 
         
