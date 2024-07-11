@@ -105,6 +105,17 @@ class RelationshipType(models.Model):
     def __str__(self):
         return dict(self.RELATIONSHIP_CHOICES)[self.name]
     
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics/')
+    age = models.IntegerField()
+    subscription_type = models.CharField(max_length=20, choices=[('free', 'Free'), ('premium', 'Premium')], default='free')
+    boost_available = models.BooleanField(default=False)
+    super_likes_remaining = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.user.username
+    
 class UserPreference(models.Model):
     GENDER_CHOICES = [
         ('men', 'Men'),
@@ -117,10 +128,13 @@ class UserPreference(models.Model):
     def __str__(self):
         return self.get_gender_display()
     
-class UserProfile(models.Model):
-    profile_photo = models.ImageField(upload_to='profile_photos/')
+class Profile(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
+    photo = models.ImageField(upload_to='profiles/')  
+
+    def __str__(self):
+        return self.name
 
 class Profile(models.Model):
     name = models.CharField(max_length=100)

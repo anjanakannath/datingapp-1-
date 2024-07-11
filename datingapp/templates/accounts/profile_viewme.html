@@ -3,7 +3,101 @@
 {% block accounts_content %}
 
 
-<h1 class="text-center">Your Profile</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile</title>
+<style>
+  /* Basic styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  .profile {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  .details {
+    flex: 1;
+  }
+  .name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .age {
+    color: #666;
+  }
+  .edit-mark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+  }
+  .edit-mark::after {
+    content: '\2714'; /* Unicode check mark */
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .progress {
+    margin-top: 10px;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background-color: #4CAF50;
+  }
+  .features {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
 
+    <div class="profile">
+        <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture">
+        <div class="details">
+          <div class="name">{{ user_profile.user.username }}</div>
+          <div class="age">{{ user_profile.age }} years old</div>
+          <div class="edit-mark"></div>
+          <div class="progress">
+            <div class="progress-bar">
+              <div class="progress-bar-inner" style="width: {{ completion_percentage }}%;"></div> <!-- Adjust width based on % complete -->
+            </div>
+          </div>
+          <div class="features">
+            <p>Subscription: {{ user_profile.subscription_type }}</p>
+            <p>Boost feature: {% if user_profile.boost_available %} Available {% else %} Not Available {% endif %}</p>
+            <p>Super Likes: {{ user_profile.super_likes_remaining }} remaining</p>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
 
 {% endblock accounts_content %}

@@ -106,6 +106,12 @@ class AddressUpsertForm(ModelForm):
             'is_default': CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture', 'age', 'subscription_type', 'boost_available', 'super_likes_remaining']
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

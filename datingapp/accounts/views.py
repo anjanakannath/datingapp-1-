@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import LoginForm, UserForm, AddressUpsertForm
 from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView
 from .models import Address
+from .models import Profile
 
 # Create your views here.
 class LoginView(View):
@@ -111,11 +112,8 @@ def profile_viewuser(request):
 
 
 def profile_list(request):
-   
-    profiles = [
-        {"name": "Jane Doe", "age": 25, "photo": "https://via.placeholder.com/200"},
-    ]
-    return render(request, 'accounts/profile_list.html', {'profiles': profiles})
+    profiles = Profile.objects.all()
+    return render(request, 'profile_list.html', {'profiles': profiles})
 
 
 
