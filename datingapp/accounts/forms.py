@@ -20,6 +20,11 @@ class PhotoForm(forms.ModelForm):
         model = Photo
         fields = ['image', 'profile_photo']
 
+class SignupForm(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Name', 'required': True}))
+    mobile_number = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'placeholder': 'Mobile Number', 'required': True}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'required': True}))
+
 
 
 class UserForm(UserCreationForm):
@@ -79,16 +84,16 @@ class UserForm(UserCreationForm):
            
         ]
 
-    class PhotoForm(forms.ModelForm):
+class PhotoForm(forms.ModelForm):
        image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
-    class Meta:
-        model = Photo
-        fields = ['image']
+       class Meta:
+           model = Photo
+           fields = ['image']
     
 
 class EmployeeEmployerForm(ModelForm):
-    class Meta:
+     class Meta:
         model = EmployeeEmployer
         fields = "__all__"
         
@@ -130,26 +135,37 @@ class AddressUpsertForm(ModelForm):
             'pincode': TextInput(attrs={'class': 'form-control'}),
             'is_default': CheckboxInput(attrs={'class': 'form-check-input'}),
         }
-
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['profile_picture', 'age', 'subscription_type', 'boost_available', 'super_likes_remaining']
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['profile_photo', 'name', 'age'] 
-
+class ProfileForm(forms.ModelForm):
+        class Meta:
+           model = Profile
+           fields = ['name', 'age', 'bio', 'photo']
+           widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['name', 'date_of_birth', 'age', 'job', 'qualification', 'smoking', 'drinking', 'hobbies', 'interests', 'bio', 'profile_picture']
+        fields = ['name', 'age', 'bio', 'photo', 'qualification', 'smoking', 'drinking', 'interests', 'hobbies', 'job']
         widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            'smoking': forms.CheckboxInput(),
-            'drinking': forms.Select(choices=[('No', 'No'), ('Occasionally', 'Occasionally'), ('Yes', 'Yes')]),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'qualification': forms.TextInput(attrs={'class': 'form-control'}),
+            'smoking': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'drinking': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'interests': forms.TextInput(attrs={'class': 'form-control'}),
+            'hobbies': forms.TextInput(attrs={'class': 'form-control'}),
+            'job': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+
+
+
+
 
         

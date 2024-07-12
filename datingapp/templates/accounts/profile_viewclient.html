@@ -1,11 +1,12 @@
 {% extends 'accounts/base.html' %}
 
-{% block content %}
+{% block accounts_content %}
+
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Profile</title>
+    <title>Client Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,9 +68,25 @@
             margin: 5px 0;
             color: #666;
         }
+        .profile-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .profile-details p {
+            margin: 5px 0;
+        }
+        .profile-details span {
+            font-weight: bold;
+        }
         .profile-bio {
             font-size: 16px;
             color: #333;
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
         }
         .button {
             padding: 10px 20px;
@@ -78,10 +95,28 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .button:hover {
             background-color: #0056b3;
+        }
+        .button.dont-show {
+            background-color: #dc3545;
+        }
+        .button.dont-show:hover {
+            background-color: #c82333;
+        }
+        .button.shortlist {
+            background-color: #28a745;
+        }
+        .button.shortlist:hover {
+            background-color: #218838;
+        }
+        .button.accept {
+            background-color: #ffc107;
+        }
+        .button.accept:hover {
+            background-color: #e0a800;
         }
     </style>
 </head>
@@ -98,12 +133,26 @@
         <h2>John Doe</h2>
         <p>25 years old</p>
     </div>
+    <div class="profile-details">
+        <p><span>Qualification:</span> Bachelor's in Computer Science</p>
+        <p><span>Smoking:</span> No</p>
+        <p><span>Drinking:</span> Occasionally</p>
+        <p><span>Interests:</span> Reading, Traveling, Music</p>
+        <p><span>Hobbies:</span> Hiking, Photography</p>
+        <p><span>Job:</span> Software Developer</p>
+    </div>
     <div class="profile-bio">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sit amet eros eu lectus bibendum aliquet.</p>
     </div>
-    <button class="button">Edit Profile</button>
+    <div class="action-buttons">
+        <button class="button message">Message</button>
+        <button class="button send">Send</button>
+        <button class="button shortlist">Shortlist</button>
+        <button class="button dont-show">Don't Show</button>
+        <button class="button accept">Accept</button>
+    </div>
 </div>
 
 </body>
 </html>
-{% endblock content %}
+{% endblock accounts_content %}

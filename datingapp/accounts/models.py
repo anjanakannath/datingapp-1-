@@ -10,6 +10,7 @@ class Country(models.Model):
     country_code = models.CharField(max_length=3)
 
 
+
 class User(AbstractUser):
     GENDER_CHOICES = (
         ('M', 'Male'),
@@ -44,6 +45,14 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo {self.id}"
+    
+class User(models.Model):
+    name = models.CharField(max_length=100)
+    mobile_number = models.CharField(max_length=15)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
     
 
 class Photo(models.Model):
@@ -125,16 +134,7 @@ class RelationshipType(models.Model):
     def __str__(self):
         return dict(self.RELATIONSHIP_CHOICES)[self.name]
     
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pics/')
-    age = models.IntegerField()
-    subscription_type = models.CharField(max_length=20, choices=[('free', 'Free'), ('premium', 'Premium')], default='free')
-    boost_available = models.BooleanField(default=False)
-    super_likes_remaining = models.IntegerField(default=0)
-    
-    def __str__(self):
-        return self.user.username
+
     
 class UserPreference(models.Model):
     GENDER_CHOICES = [
@@ -148,26 +148,27 @@ class UserPreference(models.Model):
     def __str__(self):
         return self.get_gender_display()
     
+
 class Profile(models.Model):
     name = models.CharField(max_length=100)
-    age = models.IntegerField()
-    photo = models.ImageField(upload_to='profiles/')  
-
+    age = models.PositiveIntegerField()
+    bio = models.TextField()
+    photo = models.ImageField(upload_to='profile_photos/')
+    qualification = models.CharField(max_length=200)
+    smoking = models.BooleanField(default=False)
+    drinking = models.BooleanField(default=False)
+    interests = models.CharField(max_length=200)
+    hobbies = models.CharField(max_length=200)
+    job = models.CharField(max_length=100)
+    
     def __str__(self):
         return self.name
-
+    
 class Profile(models.Model):
     name = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
-    age = models.IntegerField()
-    job = models.CharField(max_length=100)
-    qualification = models.CharField(max_length=200)
-    smoking = models.BooleanField()
-    drinking = models.CharField(max_length=100, choices=[('No', 'No'), ('Occasionally', 'Occasionally'), ('Yes', 'Yes')])
-    hobbies = models.TextField()
-    interests = models.TextField()
+    age = models.PositiveIntegerField()
     bio = models.TextField()
-    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
-
+    photo = models.ImageField(upload_to='profile_photos/')
+    
     def __str__(self):
         return self.name

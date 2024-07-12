@@ -8,7 +8,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),  
     path('login/', LoginView.as_view(), name='login'),
     path('profileviewuser/', ProfileView.as_view(), name='profile_viewuser'),
-    path('profileviewme/', ProfileView.as_view(), name='profile_viewme'),
+    path('profilevieclient/', ProfileView.as_view(), name='profile_vieclient'),
 
 
     path('address/', AddressListView.as_view(), name='address_list'),

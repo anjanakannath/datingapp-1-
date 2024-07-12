@@ -104,8 +104,8 @@ def datingapp(request):
     return render(request, 'accounts/datingapp.html')
 
 
-def profile_viewme(request):
-    return render(request, 'accounts/profile_viewme.html')
+def profile_viewclient(request):
+    return render(request, 'accounts/profile_viewclient.html')
 
 def profile_viewuser(request):
     return render(request, 'accounts/profile_viewuser.html')
