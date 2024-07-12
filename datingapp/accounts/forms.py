@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Profile
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Profile,Photo
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
@@ -10,6 +10,16 @@ from django.utils import timezone
 class LoginForm(Form):
     username = CharField()
     password = CharField(widget=PasswordInput)
+
+
+class PhotoForm(forms.ModelForm):
+    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    profile_photo = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Photo
+        fields = ['image', 'profile_photo']
+
 
 
 class UserForm(UserCreationForm):
@@ -49,7 +59,11 @@ class UserForm(UserCreationForm):
             choices=[("T", "Yes"), ("F", "No"), ("P", "Plan to Quit")],
             attrs={"class": "form-select"},
         ),
-    )
+        )
+    hobbies = forms.CharField(widget=forms.Textarea, required=False)
+    interests = forms.CharField(widget=forms.Textarea, required=False)
+    qualifications = forms.CharField(widget=forms.Textarea, required=False)
+    
     class Meta:
         model = User
         fields = [
@@ -58,8 +72,19 @@ class UserForm(UserCreationForm):
             "dob",
             "smoke",
             "drinking",
+            'hobbies', 
+            'interests', 
+            'qualifications'
+
            
         ]
+
+    class PhotoForm(forms.ModelForm):
+       image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    class Meta:
+        model = Photo
+        fields = ['image']
     
 
 class EmployeeEmployerForm(ModelForm):

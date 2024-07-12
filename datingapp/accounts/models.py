@@ -32,6 +32,26 @@ class User(AbstractUser):
     dob = models.DateField(blank=True, null=True)
     smoke = models.CharField(max_length=1,choices=SMOKE,default='N')
     drinking = models.CharField(max_length=1,choices=DRINKING,default='T')
+    hobbies = models.TextField(blank=True, null=True)
+    interests = models.TextField(blank=True, null=True)
+    qualifications = models.TextField(blank=True, null=True)
+
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='gallery/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    profile_photo = models.BooleanField(default=False)  
+
+    def __str__(self):
+        return f"Photo {self.id}"
+    
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='gallery/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Photo {self.id}"
 
     @property
     def full_name(self):
