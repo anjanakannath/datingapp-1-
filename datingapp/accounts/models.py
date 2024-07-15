@@ -172,3 +172,10 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.name
+class MessageRequest(models.Model):
+    username = models.CharField(max_length=50)
+
+class Conversation(models.Model):
+    username = models.CharField(max_length=50)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

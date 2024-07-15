@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Profile,Photo
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Profile,Photo,MessageRequest,Conversation
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
@@ -161,6 +161,16 @@ class ProfileForm(forms.ModelForm):
             'hobbies': forms.TextInput(attrs={'class': 'form-control'}),
             'job': forms.TextInput(attrs={'class': 'form-control'}),
         }
+        
+class MessageRequestForm(forms.ModelForm):
+    class Meta:
+        model = MessageRequest
+        fields = ['username']
+
+class ConversationForm(forms.ModelForm):
+    class Meta:
+        model = Conversation
+        fields = ['username', 'message']
 
 
 

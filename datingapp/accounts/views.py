@@ -7,6 +7,9 @@ from .forms import LoginForm, UserForm, AddressUpsertForm
 from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView
 from .models import Address
 from .models import Profile
+from .models import MessageRequest, Conversation
+from .forms import MessageRequestForm, ConversationForm
+
 
 # Create your views here.
 class LoginView(View):
@@ -119,4 +122,34 @@ def profile_list(request):
 
 def home(request):
     return render(request, 'accounts/home.html.html')
+
+
+def messages_view(request):
+    message_requests = MessageRequest.objects.all()
+    conversations = Conversation.objects.all()
+    message_request_form = MessageRequestForm()
+    conversation_form = ConversationForm()
+    context = {
+        'message_requests': message_requests,
+        'conversations': conversations,
+        'message_request_form': message_request_form,
+        'conversation_form': conversation_form,
+    }
+    return render(request, 'Accounts/messages.html', context)
+
+def handle_message_request(request):
+    if request.method == 'POST':
+        form = MessageRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('messages_view')
+    return redirect('messages_view')
+
+def handle_conversation(request):
+    if request.method == 'POST':
+        form = ConversationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('messages_view')
+    return redirect('messages_view')
 

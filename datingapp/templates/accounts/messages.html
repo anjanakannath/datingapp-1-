@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .sidebar {
+            width: 25%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .profile {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+        .profile h2 {
+            margin: 10px 0 0;
+        }
+        .message-requests, .conversations {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .message-requests h3, .conversations h3 {
+            margin: 0 0 10px;
+        }
+        .request, .conversation {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .request img, .conversation img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .request-info, .conversation-info {
+            flex-grow: 1;
+        }
+        .request-info h4, .conversation-info h4 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .request-info button {
+            margin-top: 5px;
+        }
+        .button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button.accept {
+            background-color: #4caf50;
+            color: white;
+        }
+        .button.decline {
+            background-color: #f44336;
+            color: white;
+        }
+        .notification {
+            background-color: #f44336;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .time {
+            font-size: 12px;
+            color: #999;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="profile">
+                <h2>Messages</h2>
+            </div>
+            <div class="message-requests">
+                <h3>Message Requests</h3>
+                <div class="request">
+                    <img src="request1.jpg" alt="Request 1">
+                    <div class="request-info">
+                        <h4>Request 1</h4>
+                        <button class="button accept">Accept</button>
+                        <button class="button decline">Decline</button>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="request2.jpg" alt="Request 2">
+                    <div class="request-info">
+                        <h4>Request 2</h4>
+                        <button class="button accept">Accept</button>
+                        <button class="button decline">Decline</button>
+                    </div>
+                </div>
+                <div class="request">
+                    <img src="request3.jpg" alt="Request 3">
+                    <div class="request-info">
+                        <h4>Request 3</h4>
+                        <button class="button accept">Accept</button>
+                        <button class="button decline">Decline</button>
+                    </div>
+                </div>
+            </div>
+            <div class="conversations">
+                <h3>Conversations</h3>
+                <div class="conversation">
+                    <img src="user1.jpg" alt="User 1">
+                    <div class="conversation-info">
+                        <h4>User 1</h4>
+                        <p><strong>JOHN:</strong> Hi, how are you? <span class="time">10:30 AM</span></p>
+                        <span class="notification">1</span>
+                    </div>
+                </div>
+                <div class="conversation">
+                    <img src="user2.jpg" alt="User 2">
+                    <div class="conversation-info">
+                        <h4>User 2</h4>
+                        <p><strong>DANI:</strong> Are we still on for lunch? <span class="time">9:40 AM</span></p>
+                    </div>
+                </div>
+                <div class="conversation">
+                    <img src="user3.jpg" alt="User 3">
+                    <div class="conversation-info">
+                        <h4>User 3</h4>
+                        <p><strong>RAM:</strong> Don't forget the meeting tomorrow. <span class="time">8:10 AM</span></p>
+                        <span class="notification">3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
