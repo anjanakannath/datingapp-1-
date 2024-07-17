@@ -149,7 +149,7 @@ class UserPreference(models.Model):
         return self.get_gender_display()
     
 
-class Profile(models.Model):
+class UserProfile(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveIntegerField()
     bio = models.TextField()

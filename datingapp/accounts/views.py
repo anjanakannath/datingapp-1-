@@ -9,6 +9,12 @@ from .models import Address
 from .models import Profile
 from .models import MessageRequest, Conversation
 from .forms import MessageRequestForm, ConversationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -88,8 +94,28 @@ class AddressDeleteView(LoginRequiredMixin, View):
     
 
 def signup(request):
-    return render(request, 'accounts/signup.html')
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        mobile_number = request.POST.get('mobile_number')
+        email = request.POST.get('email')
+        
+        if User.objects.filter(username=name).exists():
+            messages.error(request, 'Username already exists')
+            return redirect('signup')
 
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already exists')
+            return redirect('signup')
+
+        user = User.objects.create_user(username=name, email=email, password=mobile_number)
+        user.profile.mobile_number = mobile_number
+        user.save()
+
+        login(request, user)
+        return redirect('home')
+    else:
+        return render(request, 'accounts/signup.html')
+    
 
 def registersec1(request):
     return render(request, 'accounts/registersec1.html')
