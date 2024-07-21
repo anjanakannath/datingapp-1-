@@ -16,7 +16,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from .forms import RegistrationForm  
+from .forms import RegistrationForm 
+from .models import UserProfile  
 
 
 
@@ -154,32 +155,83 @@ def registersec1(request):
     return render(request, 'accounts/registrsec1.html', {'form': form})
 
 def registersec2(request):
-    return render(request, 'accounts/registersec2.html')
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            role = form.cleaned_data['role']
+            company_name = form.cleaned_data.get('company_name', '')
+            location = form.cleaned_data.get('location', '')
+            expertise_level = form.cleaned_data.get('expertise_level', '')
+            
+            # Here, you can save the data to your database or perform other actions
+            
+            return redirect('success')  # Redirect to a success page or another view
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'registrsec2.html', {'form': form})
 
 
 def registersec3(request):
-    return render(request, 'accounts/registersec3.html')
-
+    if request.method == 'POST':
+        relationship = request.POST.get('relationship')
+        # Process the form data here, e.g., save to database or perform actions
+        # For demonstration, we'll just redirect to a success page.
+        return redirect('success')  # Redirect to a success page or another view
+    
+    return render(request, 'registersec3.html')
 
 def datingapp(request):
-    return render(request, 'accounts/datingapp.html')
+    if request.method == 'POST':
+        gender = request.POST.get('gender')
+        # Process the form data here, such as saving it to the database
+        # For demonstration, we’ll just return a success message
+        return HttpResponse(f"Selected Gender: {gender}")
+    
+    return render(request, 'accounts/datingapp.html')  
 
 
-def profile_viewclient(request):
-    return render(request, 'accounts/profile_viewclient.html')
+def profile_viewcilent(request, user_id):
+    # Fetch the user profile based on user_id
+    profile = get_object_or_404(UserProfile, id=user_id)
+    
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        # Process different actions
+        if action == 'message':
+            # Handle sending a message
+            return HttpResponse("Message sent!")
+        elif action == 'send':
+            # Handle sending an item or request
+            return HttpResponse("Item sent!")
+        elif action == 'shortlist':
+            # Handle shortlisting the profile
+            return HttpResponse("Profile shortlisted!")
+        elif action == 'dont_show':
+            # Handle hiding or ignoring the profile
+            return HttpResponse("Profile hidden!")
+        elif action == 'accept':
+            # Handle accepting a request
+            return HttpResponse("Request accepted!")
+        elif action == 'friend_request':
+            # Handle sending a friend request
+            return HttpResponse("Friend request sent!")
+    
+    return render(request, 'accounts/profile_viewcilent.html', {'profile': profile})
 
-def profile_viewuser(request):
-    return render(request, 'accounts/profile_viewuser.html')
-
+def profile_viewuser(request, user_id):
+    # Fetch the user profile based on user_id
+    profile = get_object_or_404(UserProfile, id=user_id)
+    
+    # Render the profile page with the fetched profile data
+    return render(request, 'accounts/profile_viewuser.html', {
+        'profile': profile
+    })
 
 def profile_list(request):
     profiles = Profile.objects.all()
     return render(request, 'profile_list.html', {'profiles': profiles})
-
-
-
-def home(request):
-    return render(request, 'accounts/home.html.html')
 
 
 def messages_view(request):

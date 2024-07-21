@@ -22,7 +22,6 @@ urlpatterns = [
     path('registersec3/', registersec3, name='registersec3'),  
     path('datingapp/', datingapp, name='datingapp'), 
     path('profilelist',profile_list, name='profile_list'), 
-    path('home/', home, name='home'), 
     path('messages/',messages_view, name='messages'), 
     path('friend-requests/',friend_requests_view, name='friend_requests'),
 
