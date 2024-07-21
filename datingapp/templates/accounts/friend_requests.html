@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .request {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .request img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            float: left;
+            margin-right: 20px;
+        }
+        .request h4 {
+            margin: 0;
+        }
+        .request p {
+            margin: 5px 0;
+            color: #777;
+        }
+        .request button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .accept {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .reject {
+            background-color: #f44336;
+            color: white;
+        }
+        .cancel {
+            background-color: #ff9800;
+            color: white;
+        }
+        .pending {
+            background-color: #ffeb3b;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Friend Requests</h1>
+        
+        <!-- Friend Requests Sent -->
+        <h2>Requests Sent</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>John Doe</h4>
+                <p>Status: Pending</p>
+                <button class="cancel">Cancel Request</button>
+            </div>
+        </div>
+        
+        <!-- Friend Requests Received -->
+        <h2>Requests Received</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>Jane Smith</h4>
+                <p>Sent you a friend request.</p>
+                <button class="accept">Accept</button>
+                <button class="reject">Reject</button>
+            </div>
+        </div>
+        
+        <!-- Accepted Requests -->
+        <h2>Accepted Requests</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>Michael Johnson</h4>
+                <p>Status: Friend</p>
+            </div>
+        </div>
+        
+        <!-- Rejected Requests -->
+        <h2>Rejected Requests</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>Emily Davis</h4>
+                <p>Status: Rejected</p>
+            </div>
+        </div>
+        
+        <!-- Canceled Requests -->
+        <h2>Canceled Requests</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>Christopher Lee</h4>
+                <p>Status: Canceled</p>
+            </div>
+        </div>
+        
+        <!-- Pending Requests -->
+        <h2>Pending Requests</h2>
+        <div class="request">
+            <img src="profile_pic.jpg" alt="Profile Picture">
+            <div>
+                <h4>Patricia Brown</h4>
+                <p>Status: Pending</p>
+                <button class="pending">Pending Request</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

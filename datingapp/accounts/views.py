@@ -15,6 +15,10 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
+from .forms import RegistrationForm  
+
+
 
 
 # Create your views here.
@@ -118,8 +122,36 @@ def signup(request):
     
 
 def registersec1(request):
-    return render(request, 'accounts/registersec1.html')
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Save form data
+            firstname = form.cleaned_data['firstname']
+            lastname = form.cleaned_data['lastname']
+            age = form.cleaned_data['age']
+            dob = form.cleaned_data['dob']
+            hobbies = form.cleaned_data['hobbies']
+            interests = form.cleaned_data['interests']
+            qualification = form.cleaned_data['qualification']
+            smoking = form.cleaned_data['smoking']
+            drinking = form.cleaned_data['drinking']
 
+            # Handle file uploads
+            profile_photo = request.FILES.get('gallery')
+            if profile_photo:
+                fs = FileSystemStorage()
+                filename = fs.save(profile_photo.name, profile_photo)
+                uploaded_file_url = fs.url(filename)
+                # Do something with the uploaded file URL, like saving it in the database
+            
+            # Save other form data to your model or perform additional processing here
+
+            return redirect('success_page')  # Redirect to a success page or another view
+
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'accounts/registrsec1.html', {'form': form})
 
 def registersec2(request):
     return render(request, 'accounts/registersec2.html')
@@ -178,4 +210,25 @@ def handle_conversation(request):
             form.save()
             return redirect('messages_view')
     return redirect('messages_view')
+
+from django.shortcuts import render
+from .models import FriendRequest
+
+def friend_requests_view(request):
+    sent_requests = FriendRequest.objects.filter(sender=request.user)
+    received_requests = FriendRequest.objects.filter(receiver=request.user)
+    accepted_requests = FriendRequest.objects.filter(sender=request.user, status='accepted')
+    rejected_requests = FriendRequest.objects.filter(sender=request.user, status='rejected')
+    canceled_requests = FriendRequest.objects.filter(sender=request.user, status='canceled')
+    pending_requests = FriendRequest.objects.filter(sender=request.user, status='pending')
+
+    context = {
+        'sent_requests': sent_requests,
+        'received_requests': received_requests,
+        'accepted_requests': accepted_requests,
+        'rejected_requests': rejected_requests,
+        'canceled_requests': canceled_requests,
+        'pending_requests': pending_requests,
+    }
+    return render(request, 'friend_requests.html', context)
 
