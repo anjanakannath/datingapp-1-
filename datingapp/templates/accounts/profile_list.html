@@ -46,17 +46,18 @@
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        {% for profile in profiles %}
+    <h1>Profile List</h1>
+    {% for profile in profiles %}
         <div class="profile">
-            <img src="{{ profile.photo }}" alt="Profile Photo">
-            <div class="details">
-                <h2>{{ profile.name }}</h2>
-                <p>Age: {{ profile.age }}</p>
-            </div>
+            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s Profile Picture">
+            <h2>{{ profile.user.username }} ({{ profile.age }})</h2>
+            <p>{{ profile.bio }}</p>
+            <p>Subscription Status: {{ profile.subscription_status }}</p>
+            <p>Boosts: {{ profile.boost_count }}</p>
+            <p>Super Likes: {{ profile.super_likes_count }}</p>
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
 </body>
 </html>

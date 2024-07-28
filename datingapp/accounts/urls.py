@@ -23,7 +23,13 @@ urlpatterns = [
     path('datingapp/', datingapp, name='datingapp'), 
     path('profilelist',profile_list, name='profile_list'), 
     path('messages/',messages_view, name='messages'), 
-    path('friend-requests/',friend_requests_view, name='friend_requests'),
+    path('friend-requests/',friend_requests, name='friend_requests'),
+    path('shortlisted/',shortlisted, name='shortlisted'),
+    path('shortlisted_by/',shortlisted_by, name='shortlisted_by'),
+    path('contacted-profiles/',contacted_profiles, name='contacted_profiles'),
+
+
+
 
 
     

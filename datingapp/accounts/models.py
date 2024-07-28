@@ -148,8 +148,20 @@ class UserPreference(models.Model):
     def __str__(self):
         return self.get_gender_display()
     
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics', blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    subscription_status = models.CharField(max_length=20, choices=[('free', 'Free'), ('premium', 'Premium')], default='free')
+    boost_count = models.IntegerField(default=0)
+    super_likes_count = models.IntegerField(default=0)
 
-class UserProfile(models.Model):
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+    
+
+class Registration(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveIntegerField()
     bio = models.TextField()
@@ -164,7 +176,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
     
-class Profile(models.Model):
+class UserProfile(models.Model):
     name = models.CharField(max_length=100)
     age = models.PositiveIntegerField()
     bio = models.TextField()
@@ -172,6 +184,7 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.name
+    
 class MessageRequest(models.Model):
     username = models.CharField(max_length=50)
 
@@ -205,3 +218,29 @@ class FriendRequest(models.Model):
 
     class Meta:
         unique_together = ('sender', 'receiver')
+
+class Member(models.Model):
+    profile_picture = models.ImageField(upload_to='profile_pictures/')
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+    shortlisted_by = models.BooleanField(default=False)  # Indicates if the member is shortlisted by someone
+
+    def __str__(self):
+        return f"{self.name}, {self.age}"
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics')
+    age = models.IntegerField()
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class ContactedProfiles(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    message = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} contacted {self.profile.name}"

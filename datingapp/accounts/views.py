@@ -6,18 +6,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import LoginForm, UserForm, AddressUpsertForm
 from django.views.generic import View, TemplateView, ListView, CreateView, UpdateView
 from .models import Address
-from .models import Profile
 from .models import MessageRequest, Conversation
 from .forms import MessageRequestForm, ConversationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
-from django.contrib import messages
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from .forms import RegistrationForm 
+from .forms import RegistrationForm
 from .models import UserProfile  
+from .models import Profile  
+from .models import FriendRequest
+from .models import Member  
+from .models import Profile, ContactedProfiles  
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -231,7 +235,7 @@ def profile_viewuser(request, user_id):
 
 def profile_list(request):
     profiles = Profile.objects.all()
-    return render(request, 'profile_list.html', {'profiles': profiles})
+    return render(request, 'accounts/profile_list.html', {'profiles': profiles})
 
 
 def messages_view(request):
@@ -263,10 +267,8 @@ def handle_conversation(request):
             return redirect('messages_view')
     return redirect('messages_view')
 
-from django.shortcuts import render
-from .models import FriendRequest
 
-def friend_requests_view(request):
+def friend_requests(request):
     sent_requests = FriendRequest.objects.filter(sender=request.user)
     received_requests = FriendRequest.objects.filter(receiver=request.user)
     accepted_requests = FriendRequest.objects.filter(sender=request.user, status='accepted')
@@ -282,5 +284,32 @@ def friend_requests_view(request):
         'canceled_requests': canceled_requests,
         'pending_requests': pending_requests,
     }
-    return render(request, 'friend_requests.html', context)
+    return render(request, 'accounts/friend_requests.html', context)
+
+def shortlisted(request):
+    # Fetch the shortlisted profiles from the database
+    shortlisted_profiles = Profile.objects.filter(is_shortlisted=True)[:5]
+
+    context = {
+        'profiles': shortlisted
+    }
+    return render(request, 'accounts/shortlisted.html', context)
+
+def shortlisted_by(request):
+    # Query the database for shortlisted members
+    members = Member.objects.filter(shortlisted_by=True)  # Adjust the query based on your model
+
+    # Render the template with the member data
+    return render(request, 'accounts/shortlisted_by.html', {'members': members})
+
+@login_required
+def contacted_profiles(request):
+    user = request.user
+    contacted_profiles = ContactedProfiles.objects.filter(user=user).select_related('profile')
+    
+    context = {
+        'contacted_profiles': contacted_profiles
+    }
+    return render(request, 'accounts/contacted_profiles.html', context)
+
 

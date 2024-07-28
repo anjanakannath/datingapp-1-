@@ -1,11 +1,10 @@
 # forms.py
 from django import forms
 from django.forms import ModelForm, Form, TextInput, PasswordInput, CharField,CheckboxInput,DateField,DateInput,Select
-from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Photo,MessageRequest,Conversation,Profile
+from .models import User,EmployeeEmployer, Address,JobSeeker,RelationshipType,UserProfile,Photo,MessageRequest,Conversation,Registration,Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.core.validators import EmailValidator
 from django.utils import timezone
-
 
 class LoginForm(Form):
     username = CharField()
@@ -13,12 +12,20 @@ class LoginForm(Form):
 
 
 class PhotoForm(forms.ModelForm):
-    image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    image = forms.ImageField()
     profile_photo = forms.BooleanField(required=False)
 
-    class Meta:
-        model = Photo
-        fields = ['image', 'profile_photo']
+class Meta:
+         model = Photo
+         fields = ['image', 'profile_photo']
+
+
+class PhotoForm(forms.ModelForm):
+        image = forms.ImageField()
+class Meta:
+            model = Photo
+            fields = ['image']
+    
 
 class SignupForm(forms.Form):
     name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Name', 'required': True}))
@@ -84,14 +91,6 @@ class UserForm(UserCreationForm):
            
         ]
 
-class PhotoForm(forms.ModelForm):
-       image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
-
-       class Meta:
-           model = Photo
-           fields = ['image']
-    
-
 class EmployeeEmployerForm(ModelForm):
      class Meta:
         model = EmployeeEmployer
@@ -134,20 +133,30 @@ class AddressUpsertForm(ModelForm):
             'country': TextInput(attrs={'class': 'form-control'}),
             'pincode': TextInput(attrs={'class': 'form-control'}),
             'is_default': CheckboxInput(attrs={'class': 'form-check-input'}),
+        
         }
 class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = [ 'profile_picture', 'age']
+
+
+class Userprofile(forms.ModelForm):
         class Meta:
-           model = Profile
+           model = UserProfile
            fields = ['name', 'age', 'bio', 'photo']
            widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'age': forms.NumberInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+
         }
-class ProfileForm(forms.ModelForm):
+           
+        
+class RegistrationForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
+        model = Registration
         fields = ['name', 'age', 'bio', 'photo', 'qualification', 'smoking', 'drinking', 'interests', 'hobbies', 'job']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -162,6 +171,7 @@ class ProfileForm(forms.ModelForm):
             'job': forms.TextInput(attrs={'class': 'form-control'}),
         }
         
+
 class MessageRequestForm(forms.ModelForm):
     class Meta:
         model = MessageRequest
